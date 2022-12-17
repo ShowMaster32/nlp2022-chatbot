@@ -1,0 +1,12 @@
+Progetto:
+Create a small chatbot by using Google DialogFlow (either EX or CX). Identify a suitable problem and design the dialogue flow inside the application.
+
+Idea: creare un chatbot collegato a twitch che ti permetta di scegliere cosa vuoi fare, ad esempio seguire il tuo streamer preferito, abbonarti, regalare sub, leggere la chat RT o per secondi prefissati. Aprire un frame con la stream live. Possiamo collegarci anche al chatbot di twitch, es. !arma e risponde. Anche discorso notifiche customizzabili come onEvent di uno stremare seguito che va online.
+
+
+Alcune funzioni possono essere ad esempio: 
+seguire il proprio streamer preferito
+fare un abbonamento allo streamer, regalare abbonamenti
+leggere la chat
+aprire un frame con lo stream in diretta e così via. 
+Ci chiedevamo, inoltre, se avesse consigli da darci relativi al progetto affinché diventi un lavoro accurato e che segua al meglio le linee guida. 

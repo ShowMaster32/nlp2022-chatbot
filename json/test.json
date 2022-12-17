@@ -1,0 +1,35 @@
+{
+   "ok":true,
+   "result":[
+      {
+         "update_id":129299363,
+         "message":{
+            "message_id":164,
+            "from":{
+               "id":1671491209,
+               "is_bot":false,
+               "first_name":"Anykey",
+               "last_name":"Assistenza tecnica",
+               "username":"albydev46",
+               "language_code":"it"
+            },
+            "chat":{
+               "id":1671491209,
+               "first_name":"Anykey",
+               "last_name":"Assistenza tecnica",
+               "username":"albydev46",
+               "type":"private"
+            },
+            "date":1671270476,
+            "text":"/hgelp",
+            "entities":[
+               {
+                  "offset":0,
+                  "length":6,
+                  "type":"bot_command"
+               }
+            ]
+         }
+      }
+   ]
+}
