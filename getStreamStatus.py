@@ -2,17 +2,20 @@ import os
 import requests
 import json
 from telegramSend import telegram_bot_sendtext
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Twitch client API parameters
+twitchclient_id = os.getenv('TWITCHCLIENT_ID')
+twitchsecret = os.getenv('TWITCHSECRET')
 
 #2. Function that checks whether stream is online
-def is_TwitchOnline():
+def is_TwitchOnline(userStream):
 	try:
-		# Twitch API parameters
-		twitchclient_id="0t41emt7s7m1m6wrg0e7mco4ymikjp"
-		twitchsecret="fyqm53eh0ufs250r01fs37oxhvjaa6"
-
-		# The Twitch user you are interested in for example
+		
 		# https://www.twitch.tv/maximum  --> userStream='maximum'
-		userStream='sh0wblack32'
+		#userStream='moonrsdyde'
 
 
 		# URL to request OAuth Token
@@ -29,8 +32,18 @@ def is_TwitchOnline():
 				   userStream, headers={'Authorization': 'Bearer ' + \
 				   OAuth_Token,'Client-Id': twitchclient_id})
 		var=json.loads(response.content)
+		print(var)
+		if var['data']:
+			message='Stream of : ['+str(userStream)+'](https://www.twitch.tv/'+str(userStream)+') is online. \n'
 
+			telegram_bot_sendtext(message)
 
+		# Twitch var data returns wether the stream just went off-line    
+		if not var['data']:
+			telegram_bot_sendtext(userStream.upper()+' is offline')
+
+		return 'done'	
+		"""
 		# Dummy variable stored in text file for status update
 		cwd = os.getcwd()
 		filename= cwd + '/StreamTwitch_01Bot.txt'
@@ -61,8 +74,11 @@ def is_TwitchOnline():
 			f = open(filename, "w")
 			f.write("FALSE")
 			f.close()
-	
+		"""
 	except Exception as e: 
 		print(e)
+		return 'error'
+		#message= userStream.upper()+' could not exist, try again with another. \n'
+		#telegram_bot_sendtext(message)
 	
 	return "Done"

@@ -4,7 +4,7 @@ from telegramGet import telegram_bot_getUpdates
 
 # Running a check every 30seconds to see whether the Twitch stream is online
 def main():
-	timertime=5
+	timertime=1
 	telegram_bot_getUpdates()
    
 	# 5sec timer
