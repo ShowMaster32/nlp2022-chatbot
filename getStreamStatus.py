@@ -15,7 +15,7 @@ def is_TwitchOnline(userStream):
 	try:
 		
 		# https://www.twitch.tv/maximum  --> userStream='maximum'
-		#userStream='moonrsdyde'
+		#userStream='moonryde'
 
 
 		# URL to request OAuth Token
