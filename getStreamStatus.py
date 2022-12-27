@@ -10,13 +10,18 @@ load_dotenv()
 twitchclient_id = os.getenv('TWITCHCLIENT_ID')
 twitchsecret = os.getenv('TWITCHSECRET')
 
+#exclude general keywords
+banned_keyword_list = ['would', 'watch', 'want', 'start', 'stop', 'show']
+
 #2. Function that checks whether stream is online
 def is_TwitchOnline(userStream):
-	try:
-		
-		# https://www.twitch.tv/maximum  --> userStream='maximum'
-		#userStream='moonryde'
 
+	#filter text without banned_keyword_list words
+	if userStream.casefold() in banned_keyword_list or len(userStream) < 4:
+		return 'error'
+
+	try:
+		#userStream='sh0wblack32'
 
 		# URL to request OAuth Token
 		tokenurl = 'https://id.twitch.tv/oauth2/token?client_id=' + twitchclient_id + \
@@ -31,6 +36,7 @@ def is_TwitchOnline(userStream):
 		response = requests.get('https://api.twitch.tv/helix/streams?user_login=' + \
 				   userStream, headers={'Authorization': 'Bearer ' + \
 				   OAuth_Token,'Client-Id': twitchclient_id})
+
 		var=json.loads(response.content)
 		print(var)
 		if var['data']:
