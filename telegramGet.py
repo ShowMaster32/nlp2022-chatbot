@@ -3,6 +3,7 @@ import requests
 import json
 from telegramSend import telegram_bot_sendtext
 from getStreamStatus import is_TwitchOnline
+from createClip import createClip
 from dotenv import load_dotenv
 import re
 
@@ -67,8 +68,19 @@ def telegram_bot_getUpdates():
 				if result == 'error':
 					message= 'The user you insert could not exist, try again with another. \n'
 					telegram_bot_sendtext(message)		
+			#create and get a clip
+			elif re.search("clip", command):
+				for split in splittedCommand:
+					if len(split)>=2:
+						result = createClip(split)
+						if result == 'done':
+							break
+				if result == 'error':
+					message= 'The user you insert could not exist, try again with another. \n'
+					telegram_bot_sendtext(message)
+
 			elif ('boh' in splittedCommand):
-				print('boh')
+				print('boh')	
 			else:
 				print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid command')
 	
