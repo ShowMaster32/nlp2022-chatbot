@@ -4,6 +4,7 @@ import json
 from telegramSend import telegram_bot_sendtext
 from getStreamStatus import is_TwitchOnline
 from createClip import createClip
+from topGames import topGames
 from dotenv import load_dotenv
 import re
 
@@ -78,7 +79,16 @@ def telegram_bot_getUpdates():
 				if result == 'error':
 					message= 'The user you insert could not exist, try again with another. \n'
 					telegram_bot_sendtext(message)
-
+			#get top N categories at the moment
+			elif re.search("top", command) or re.search("best", command) or re.search("games", command) or re.search("categories", command):
+				done = False
+				for split in splittedCommand:
+					if re.search('[0-9]+', split):
+						topGames(split)
+						done = True
+						break
+				if not done:
+					topGames(10)
 			elif ('boh' in splittedCommand):
 				print('boh')	
 			else:
