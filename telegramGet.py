@@ -4,6 +4,7 @@ import json
 from telegramSend import telegram_bot_sendtext
 from getStreamStatus import is_TwitchOnline
 from setModeration import *
+from createClip import createClip
 from topGames import topGames
 from dotenv import load_dotenv
 import re
@@ -71,7 +72,26 @@ def telegram_bot_getUpdates():
 							break
 				if result == 'error':
 					message= 'The user you insert could not exist, try again with another. \n'
-					telegram_bot_sendtext(message)		
+					telegram_bot_sendtext(message)
+			elif re.search("clip", command):
+				for split in splittedCommand:
+					if len(split)>=2:
+						result = createClip(split)
+						if result == 'done':
+							break
+				if result == 'error':
+					message= 'The user you insert could not exist, try again with another. \n'
+					telegram_bot_sendtext(message)
+			#get top N categories at the moment
+			elif re.search("top", command) or re.search("best", command) or re.search("games", command) or re.search("categories", command):
+				done = False
+				for split in splittedCommand:
+					if re.search('[0-9]+', split):
+						topGames(split)
+						done = True
+						break
+				if not done:
+					topGames(10)
 			elif re.search("admin", command) or re.search("administrator", command) or re.search("administration", command):
 				#welcome on admin menu function - admin menu
 				telegram_bot_sendtext("Welcome to admin's menu. To quit menu, digit \":quit\" word.")
