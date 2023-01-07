@@ -4,6 +4,7 @@ import json
 from telegramSend import telegram_bot_sendtext
 from getStreamStatus import is_TwitchOnline
 from setModeration import *
+from topGames import topGames
 from dotenv import load_dotenv
 import re
 import time
