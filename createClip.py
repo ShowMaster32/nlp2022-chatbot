@@ -10,8 +10,8 @@ load_dotenv()
 # Twitch client API parameters
 twitchclient_id = os.getenv('TWITCHCLIENT_ID')
 twitchsecret = os.getenv('TWITCHSECRET')
-OAuth_edit_clip = os.getenv('OAUTH_TOKEN')
-client_id_edit_clip = os.getenv('CLIENT_ID')
+OAuth_scope = os.getenv('ACCESS_TOKEN')
+client_id_scope = os.getenv('CLIENT_ID')
 
 banned_keyword_list = ['clip', 'create', 'want', 'show', 'from', 'by', 'where', 'when', 'because', 'while', 'what']
 
@@ -51,8 +51,8 @@ def createClip(userStream):
 
 			# token OAuth generated with scope clip:edit https://twitchtokengenerator.com/?code=ib0zf1aoehm67rse2gmjtt0m8gh5pl&scope=clips%3Aedit&state=frontend%7CNy9ZS0hYT01rNFdEMk0xK0ZOd0M5UT09
 			headers = {
-				'Authorization': 'Bearer '+ OAuth_edit_clip,
-				'Client-Id': client_id_edit_clip
+				'Authorization': 'Bearer '+ OAuth_scope,
+				'Client-Id': client_id_scope
 			}
 			
 			# 2) CREATE THE CLIP
