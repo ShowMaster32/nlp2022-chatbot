@@ -62,8 +62,10 @@ def telegram_bot_getUpdates():
 			
 			splittedCommand = command.split()
 			
+			if re.search("hi", command) or re.search("hello", command) or re.search("good morning", command) or re.search("good afternoon", command) or re.search("good evening", command):  
+				telegram_bot_sendtext("Hi, I'm a chat bot that let you interact with Twitch. Tell me something or type _help_ to see the list of available commands.")
 			#search keyboards in chat to get info stream status:
-			if re.search("watch", command) or re.search("stream", command):  
+			elif re.search("watch", command) or re.search("stream", command):  
 				for split in splittedCommand:
 					if len(split) >= 2:
 						#check streaming status function
@@ -92,6 +94,8 @@ def telegram_bot_getUpdates():
 						break
 				if not done:
 					topGames(10)
+			elif re.search("help", command) or re.search("commands", command):
+				telegram_bot_sendtext("Here the list of available commands: \n• watch _streamer username_ -> to get a link to watch a streamer \n• clip _streamer username_ -> to generate a clip of a streamer \n• top N categories -> to get the top N categories streamed \n• admin -> to enter admin mode")
 			elif re.search("admin", command) or re.search("administrator", command) or re.search("administration", command):
 				#welcome on admin menu function - admin menu
 				telegram_bot_sendtext("Welcome to admin's menu. To quit menu, digit \":quit\" word.")
@@ -152,13 +156,16 @@ def telegram_bot_getUpdates():
 							if result == 'error':
 								message= 'It seems there is an error while getting mod\'s list. \n'
 								telegram_bot_sendtext(message)
-								
+						elif re.search("help", command) or re.search("commands", command):
+							telegram_bot_sendtext("Here the list of available admin commands: \n• add mod _username_ -> to add a moderator to your channel \n• remove mod _username_ -> to remove a moderator to your channel \n• list mod _username_ -> to see the moderators of your channel \n• add vip _username_ -> to add a vip to your channel \n• remove vip _username_ -> to remove a vip to your channel \n• list vip _username_ -> to see the vip of your channel \n• add ban _username_ -> to ban a user \n• remove ban _username_ -> to unban a user \n• list ban _username_ -> to see the list of banned users \n")		
 						elif re.search("quit", command):
 							print ("Command quit received. Exiting from admin's menu..")
 							telegram_bot_sendtext("Command quit received. Exiting from admin's menu..")
 							break
 						else:
-							print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid ADMIN-command')
+							print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid ADMIN-command\n')
+							if command.casefold() != 'admin':
+								telegram_bot_sendtext('*'+command + '* is not a valid ADMIN-command\n''Type \":help\" to see the available commands.')
 							continue
 						print ("Sleeping until next command..")
 						time.sleep(3)
@@ -169,8 +176,8 @@ def telegram_bot_getUpdates():
 			elif re.search("quit", command):
 				exit()
 			else:
-				print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid command')
-	
+				print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid command\n')
+				telegram_bot_sendtext('*'+command + '* is not a valid command\n''Type \":help\" to see the available commands.')
 	except Exception as e: 
 		print(e)
 	
