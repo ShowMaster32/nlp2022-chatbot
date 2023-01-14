@@ -298,7 +298,7 @@ def addVip(userStream):
 		response.raise_for_status()
 		OAuth_Token = response.json()["access_token"]
 
-		getUserId = requests.post('https://api.twitch.tv/helix/channels/vips/?login=' + userStream, headers={'Authorization': 'Bearer ' + \
+		getUserId = requests.get('https://api.twitch.tv/helix/users/?login=' + userStream, headers={'Authorization': 'Bearer ' + \
 				   OAuth_Token,'Client-Id': twitchclient_id})
 		print (json.loads(getUserId.content))
 		
@@ -307,7 +307,7 @@ def addVip(userStream):
 		print(var['data'][0]['id'])
 		newModId=var['data'][0]['id']
 		# Connection to Twitch
-		response = requests.post('https://api.twitch.tv/helix/moderation/moderators?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&user_id=' + newModId\
+		response = requests.post('https://api.twitch.tv/helix/channels/vips?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&user_id=' + newModId\
 		
 				   , headers={'Authorization': 'Bearer ' + \
 				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')})
@@ -346,7 +346,7 @@ def removeVip(userStream):
 		response.raise_for_status()
 		OAuth_Token = response.json()["access_token"]
 
-		getUserId = requests.get('https://api.twitch.tv/helix/channels/vips/?login=' + userStream, headers={'Authorization': 'Bearer ' + \
+		getUserId = requests.get('https://api.twitch.tv/helix/users/?login=' + userStream, headers={'Authorization': 'Bearer ' + \
 				   OAuth_Token,'Client-Id': twitchclient_id})
 		print (json.loads(getUserId.content))
 		
@@ -355,7 +355,7 @@ def removeVip(userStream):
 		print(var['data'][0]['id'])
 		newModId=var['data'][0]['id']
 		# Connection to Twitch
-		response = requests.delete('https://api.twitch.tv/helix/moderation/moderators?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&user_id=' + newModId\
+		response = requests.delete('https://api.twitch.tv/helix/channels/vips?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&user_id=' + newModId\
 				   , headers={'Authorization': 'Bearer ' + \
 				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')})
 
