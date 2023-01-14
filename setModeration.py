@@ -185,11 +185,14 @@ def banUser(userStream):
 		var=json.loads(getUserId.content)
 		print("Broadcaster id: ")
 		print(var['data'][0]['id'])
-		newModId=var['data'][0]['id']
+		userId=var['data'][0]['id']
+		
+		body = {"data": {"user_id":userId}}
+
 		# Connection to Twitch
-		response = requests.post('https://api.twitch.tv/helix/moderation/bans?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&user_id=' + newModId\
+		response = requests.post('https://api.twitch.tv/helix/moderation/bans?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&moderator_id=' + os.getenv('ADMIN_BROADCASTER_ID')\
 				   , headers={'Authorization': 'Bearer ' + \
-				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')})
+				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')}, json=body)
 
 		print (response.text)
 		
@@ -232,11 +235,14 @@ def unbanUser(userStream):
 		var=json.loads(getUserId.content)
 		print("Broadcaster id: ")
 		print(var['data'][0]['id'])
-		newModId=var['data'][0]['id']
+		userId=var['data'][0]['id']
+		
+		body = {"data": {"user_id":userId}}
+		
 		# Connection to Twitch
-		response = requests.delete('https://api.twitch.tv/helix/moderation/bans?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&user_id=' + newModId\
+		response = requests.delete('https://api.twitch.tv/helix/moderation/bans?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&moderator_id=' + os.getenv('ADMIN_BROADCASTER_ID')\
 				   , headers={'Authorization': 'Bearer ' + \
-				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')})
+				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')}, json=body)
 
 		print (response.text)
 		

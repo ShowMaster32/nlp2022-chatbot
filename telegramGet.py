@@ -96,6 +96,8 @@ def telegram_bot_getUpdates():
 					topGames(10)
 			elif re.search("help", command) or re.search("commands", command):
 				telegram_bot_sendtext("Here the list of available commands: \n• watch _streamer username_ -> to get a link to watch a streamer \n• clip _streamer username_ -> to generate a clip of a streamer \n• top N categories -> to get the top N categories streamed \n• admin -> to enter admin mode")
+			elif re.search("mod", command) or re.search("vip", command) or re.search("ban", command):
+				telegram_bot_sendtext("Command available only into the admin mode. Type _admin_ to enter admin mode.")
 			elif re.search("admin", command) or re.search("administrator", command) or re.search("administration", command):
 				#welcome on admin menu function - admin menu
 				telegram_bot_sendtext("Welcome to admin's menu. To quit menu, digit \":quit\" word.")
@@ -167,11 +169,11 @@ def telegram_bot_getUpdates():
 								telegram_bot_sendtext(message)
 										
 						#ban user function - admin menu					
-						elif re.search("ban", command) and (re.search("user", command) or re.search("users", command)):
+						elif re.match("ban", command) and (re.search("user", command) or re.search("users", command)):
 							print ("Received ban user request")
 
 							for split in splittedCommand:
-								if len(split) >= 2 and split != "remove" and split != "delete" and split != "mod" and split != "moderator" and split != "moderators" and split != "admin":
+								if len(split) >= 2 and split != "remove" and split != "delete" and split != "mod" and split != "moderator" and split != "moderators" and split != "admin" and split !="user" and split != "users" and split != "ban":
 									
 									print ("Trying to ban a user: " + split)
 									result = banUser(split)
@@ -182,11 +184,11 @@ def telegram_bot_getUpdates():
 										telegram_bot_sendtext(message)
 										
 						#UNban user function - admin menu					
-						elif re.search("unban", command) and (re.search("user", command) or re.search("users", command)):
+						elif re.match("unban", command) and (re.search("user", command) or re.search("users", command)):
 							print ("Received unban user request")
 
 							for split in splittedCommand:
-								if len(split) >= 2 and split != "remove" and split != "delete" and split != "mod" and split != "moderator" and split != "moderators" and split != "admin":
+								if len(split) >= 2 and split != "remove" and split != "delete" and split != "mod" and split != "moderator" and split != "moderators" and split != "admin" and split !="user" and split != "users" and split != "ban":
 									
 									print ("Trying to unban a user: " + split)
 									result = unbanUser(split)
@@ -206,7 +208,7 @@ def telegram_bot_getUpdates():
 								telegram_bot_sendtext(message)	
 								
 						#add vip user function - admin menu
-						if re.search("add", command) and (re.search("vip", command) or re.search("vips", command)):
+						elif re.search("add", command) and (re.search("vip", command) or re.search("vips", command)):
 							print ("Received adding VIP user request")
 
 							for split in splittedCommand:
@@ -237,6 +239,8 @@ def telegram_bot_getUpdates():
 										
 						elif re.search("help", command) or re.search("commands", command):
 							telegram_bot_sendtext("Here the list of available admin commands: \n• add mod _username_ -> to add a moderator to your channel \n• remove mod _username_ -> to remove a moderator to your channel \n• list mod _username_ -> to see the moderators of your channel \n• add vip _username_ -> to add a vip to your channel \n• remove vip _username_ -> to remove a vip to your channel \n• list vip _username_ -> to see the vip of your channel \n• add ban _username_ -> to ban a user \n• remove ban _username_ -> to unban a user \n• list ban _username_ -> to see the list of banned users \n")		
+						elif re.search("watch", command) or re.search("clip", command) or re.search("top", command) or re.search("categories", command) or re.search("best", command) or re.search("games", command):
+							telegram_bot_sendtext("Command not available into the admin mode. Type _quit_ to exit.")
 						elif re.search("quit", command):
 							print ("Command quit received. Exiting from admin's menu..")
 							telegram_bot_sendtext("Command quit received. Exiting from admin's menu..")
