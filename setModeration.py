@@ -163,7 +163,7 @@ def getBannedUsers():
 
 
 #6. Function that ban a user
-def banUser():
+def banUser(userStream):
 
 	#filter text without banned_keyword_list words
 	if userStream.casefold() in banned_keyword_list or len(userStream) < 4:
@@ -210,7 +210,7 @@ def banUser():
 
 
 #7. Function that unban a user
-def unbanUser():
+def unbanUser(userStream):
 
 	#filter text without banned_keyword_list words
 	if userStream.casefold() in banned_keyword_list or len(userStream) < 4:
