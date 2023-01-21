@@ -96,7 +96,7 @@ def telegram_bot_getUpdates():
 					topGames(10)
 			elif re.search("help", command) or re.search("commands", command):
 				telegram_bot_sendtext("Here the list of available commands: \n• watch _streamer username_ -> to get a link to watch a streamer \n• clip _streamer username_ -> to generate a clip of a streamer \n• top N categories -> to get the top N categories streamed \n• admin -> to enter admin mode")
-			elif re.search("mod", command) or re.search("vip", command) or re.search("ban", command):
+			elif re.search("mod", command) or re.search("ban", command): #or re.search("vip", command) 
 				telegram_bot_sendtext("Command available only into the admin mode. Type _admin_ to enter admin mode.")
 			elif re.search("admin", command) or re.search("administrator", command) or re.search("administration", command):
 				#welcome on admin menu function - admin menu
@@ -181,11 +181,11 @@ def telegram_bot_getUpdates():
 										telegram_bot_sendtext(message)
 										
 						#UNban user function - admin menu					
-						elif re.match("unban", command) and (re.search("user", command) or re.search("users", command)):
+						elif (re.match("unban", command) and (re.search("user", command) or re.search("users", command))) or (re.search("remove", command) and re.search("ban", command) and (re.search("user", command) or re.search("users", command))):
 							print ("Received unban user request")
 
 							for split in splittedCommand:
-								if len(split) >= 2 and split != "remove" and split != "delete" and split != "mod" and split != "moderator" and split != "moderators" and split != "admin" and split !="user" and split != "users" and split != "ban":
+								if len(split) >= 2 and split != "remove" and split != "delete" and split != "mod" and split != "moderator" and split != "moderators" and split != "admin" and split !="user" and split != "users" and split != "unban" and split != "ban":
 									
 									print ("Trying to unban a user: " + split)
 									result = unbanUser(split)
@@ -196,46 +196,46 @@ def telegram_bot_getUpdates():
 										telegram_bot_sendtext(message)
 								
 						#get list of VIP users - admin menu									
-						elif re.search("list", command) and (re.search("vip", command) or re.search("vips", command)) and (re.search("users", command) or re.search("user", command)):
-							print ("Received listing VIP users request")
-							result = getVips()
-							
-							if result == 'error':
-								message= 'It seems there is an error while getting VIPs users\'s list. \n'
-								telegram_bot_sendtext(message)	
+						#elif re.search("list", command) and (re.search("vip", command) or re.search("vips", command)) and (re.search("users", command) or re.search("user", command)):
+						#	print ("Received listing VIP users request")
+						#	result = getVips()
+						#	
+						#	if result == 'error':
+						#		message= 'It seems there is an error while getting VIPs users\'s list. \n'
+						#		telegram_bot_sendtext(message)	
 								
 						#add vip user function - admin menu
-						elif re.search("add", command) and (re.search("vip", command) or re.search("vips", command)):
-							print ("Received adding VIP user request")
+						#elif re.search("add", command) and (re.search("vip", command) or re.search("vips", command)):
+						#	print ("Received adding VIP user request")
 
-							for split in splittedCommand:
-								if len(split) >= 2 and split != "add" and split != "vip" and split != "vips" and split != "admin":
-									#check streaming status function
-									print ("Trying to add VIP user: " + split)
-									result = addVip(split)
-									if result == 'done':
-										break
-									if result == 'error':
-										message= 'The user you insert could not exist, try again with another one. \n'
-										telegram_bot_sendtext(message)
+						#	for split in splittedCommand:
+						#		if len(split) >= 2 and split != "add" and split != "vip" and split != "vips" and split != "admin":
+						#			#check streaming status function
+						#			print ("Trying to add VIP user: " + split)
+						#			result = addVip(split)
+						#			if result == 'done':
+						#				break
+						#			if result == 'error':
+						#				message= 'The user you insert could not exist, try again with another one. \n'
+						#				telegram_bot_sendtext(message)
 										
 						#remove vip user function - admin menu					
-						elif (re.search("remove", command) or re.search("delete", command)) and (re.search("vip", command) or re.search("vips", command)):
-							print ("Received removing VIP user request")
+						#elif (re.search("remove", command) or re.search("delete", command)) and (re.search("vip", command) or re.search("vips", command)):
+						#	print ("Received removing VIP user request")
 
-							for split in splittedCommand:
-								if len(split) >= 2 and split != "remove" and split != "delete" and split != "vip" and split != "vips" and split != "admin":
-									
-									print ("Trying to remove VIP user: " + split)
-									result = removeVip(split)
-									if result == 'done':
-										break
-									if result == 'error':
-										message= 'The user you insert could not exist, try again with another. \n'
-										telegram_bot_sendtext(message)
+						#	for split in splittedCommand:
+						#		if len(split) >= 2 and split != "remove" and split != "delete" and split != "vip" and split != "vips" and split != "admin":
+						#			
+						#			print ("Trying to remove VIP user: " + split)
+						#			result = removeVip(split)
+						#			if result == 'done':
+						#				break
+						#			if result == 'error':
+						#				message= 'The user you insert could not exist, try again with another. \n'
+						#				telegram_bot_sendtext(message)
 										
 						elif re.search("help", command) or re.search("commands", command):
-							telegram_bot_sendtext("Here the list of available admin commands: \n• add mod _username_ -> to add a moderator to your channel \n• remove mod _username_ -> to remove a moderator to your channel \n• list mod _username_ -> to see the moderators of your channel \n• add vip _username_ -> to add a vip to your channel \n• remove vip _username_ -> to remove a vip to your channel \n• list vip _username_ -> to see the vip of your channel \n• add ban _username_ -> to ban a user \n• remove ban _username_ -> to unban a user \n• list ban _username_ -> to see the list of banned users \n")		
+							telegram_bot_sendtext("Here the list of available admin commands: \n• add mod _username_ -> to add a moderator to your channel \n• remove mod _username_ -> to remove a moderator to your channel \n• list mod _username_ -> to see the moderators of your channel \n• add ban _username_ -> to ban a user \n• remove ban _username_ -> to unban a user \n• list ban _username_ -> to see the list of banned users \n")#• add vip _username_ -> to add a vip to your channel \n• remove vip _username_ -> to remove a vip to your channel \n• list vip _username_ -> to see the vip of your channel \n")		
 						elif re.search("watch", command) or re.search("clip", command) or re.search("top", command) or re.search("categories", command) or re.search("best", command) or re.search("games", command):
 							telegram_bot_sendtext("Command not available into the admin mode. Type _quit_ to exit.")
 						elif re.search("quit", command):

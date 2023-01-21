@@ -189,20 +189,35 @@ def banUser(userStream):
 		
 		body = {"data": {"user_id":userId}}
 
-		# Connection to Twitch
-		response = requests.post('https://api.twitch.tv/helix/moderation/bans?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&moderator_id=' + os.getenv('ADMIN_BROADCASTER_ID')\
+		# Get banned users
+		response = requests.get('https://api.twitch.tv/helix/moderation/banned?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') \
 				   , headers={'Authorization': 'Bearer ' + \
-				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')}, json=body)
+				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')})
 
-		print (response.text)
+		var=json.loads(response.content)
+
+		already_banned = False
+		for index, user in enumerate(var['data']):
+			userName = user['user_name']
+			if userName.casefold() == userStream.casefold():
+				already_banned = True
+				break
 		
-		if 'user is already banned' in response.text:
-			telegram_bot_sendtext('User is already banned!')
-		elif not var['data']: #len(response.text) == 0:
-			telegram_bot_sendtext('Successfully banned user.')
+		if already_banned == False:
+			# Connection to Twitch
+			response = requests.post('https://api.twitch.tv/helix/moderation/bans?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&moderator_id=' + os.getenv('ADMIN_BROADCASTER_ID')\
+					, headers={'Authorization': 'Bearer ' + \
+					os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')}, json=body)
+
+			var=json.loads(response.content)
+			
+			if var['data']:
+				telegram_bot_sendtext('Successfully banned user.')
+			else:
+				telegram_bot_sendtext('Something gone wrong')
 		else:
-			telegram_bot_sendtext('Something gone wrong')
-		
+			telegram_bot_sendtext('The user is already banned!')
+
 		return 'done'
 		
 	except Exception as e: 
@@ -237,18 +252,15 @@ def unbanUser(userStream):
 		print(var['data'][0]['id'])
 		userId=var['data'][0]['id']
 		
-		body = {"data": {"user_id":userId}}
-		
-		# Connection to Twitch
-		response = requests.delete('https://api.twitch.tv/helix/moderation/bans?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&moderator_id=' + os.getenv('ADMIN_BROADCASTER_ID')\
+		response = requests.delete('https://api.twitch.tv/helix/moderation/bans?broadcaster_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&moderator_id=' + os.getenv('ADMIN_BROADCASTER_ID') + '&user_id=' + userId\
 				   , headers={'Authorization': 'Bearer ' + \
-				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')}, json=body)
+				   os.getenv('ACCESS_TOKEN'),'Client-Id': os.getenv('CLIENT_ID')})
 
-		print (response.text)
+		#print (response.text)
 		
-		if 'user is not banned' in response.text:
+		if 'is not banned' in response.text:
 			telegram_bot_sendtext('User is not banned!')
-		elif not var['data']: #len(response.text) == 0:
+		elif len(response.text) == 0:
 			telegram_bot_sendtext('Successfully unbanned user.')
 		else:
 			telegram_bot_sendtext('Something gone wrong')
