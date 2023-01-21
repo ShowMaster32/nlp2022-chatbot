@@ -2,7 +2,6 @@ import threading
 from datetime import date
 from telegramGet import telegram_bot_getUpdates
 
-# Running a check every 30seconds to see whether the Twitch stream is online
 def main():
 	timertime=1
 	telegram_bot_getUpdates()

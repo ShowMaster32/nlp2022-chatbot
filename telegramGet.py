@@ -104,7 +104,6 @@ def telegram_bot_getUpdates():
 				print ("ADMIN Menu - Mode")
 				lastMessageId = ""
 				while True:
-					#TODO: unire in una funzione unica ###########################################
 					getUp = 'https://api.telegram.org/bot' + bot_token + '/getUpdates?offset=-1'
 					response = requests.get(getUp)
 					r = json.loads(response.text)
@@ -126,7 +125,6 @@ def telegram_bot_getUpdates():
 
 							for split in splittedCommand:
 								if len(split) >= 2 and split != "add" and split != "mod" and split != "moderator" and split != "moderators" and split != "admin":
-									#check streaming status function
 									print ("Trying to add user: " + split)
 									result = addModerator(split)
 									if result == 'done':
@@ -141,7 +139,6 @@ def telegram_bot_getUpdates():
 
 							for split in splittedCommand:
 								if len(split) >= 2 and split != "remove" and split != "delete" and split != "mod" and split != "moderator" and split != "moderators" and split != "admin":
-									#check streaming status function
 									print ("Trying to remove user: " + split)
 									result = removeModerator(split)
 									if result == 'done':
