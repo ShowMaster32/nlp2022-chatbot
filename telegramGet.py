@@ -157,7 +157,7 @@ def telegram_bot_getUpdates():
 								telegram_bot_sendtext(message)
 								
 						#get list of banned users - admin menu									
-						elif re.search("list", command) and re.search("banned", command) and (re.search("users", command) or re.search("user", command)):
+						elif re.search("list", command) and re.search("banned", command) and re.search("ban", command) and(re.search("users", command) or re.search("user", command)):
 							print ("Received listing banned users request")
 							result = getBannedUsers()
 							
@@ -235,7 +235,7 @@ def telegram_bot_getUpdates():
 										telegram_bot_sendtext(message)
 										
 						elif re.search("help", command) or re.search("commands", command):
-							telegram_bot_sendtext("Here the list of available admin commands: \n• add mod _username_ -> to add a moderator to your channel \n• remove mod _username_ -> to remove a moderator to your channel \n• list mod _username_ -> to see the moderators of your channel \n• add ban _username_ -> to ban a user \n• remove ban _username_ -> to unban a user \n• list ban _username_ -> to see the list of banned users \n• add vip _username_ -> to add a vip to your channel \n• remove vip _username_ -> to remove a vip to your channel \n• list vip _username_ -> to see the vip of your channel \n")		
+							telegram_bot_sendtext("Here the list of available admin commands: \n• add mod _username_ -> to add a moderator to your channel \n• remove mod _username_ -> to remove a moderator to your channel \n• list mod users -> to see the moderators of your channel \n• add ban _username_ -> to ban a user \n• remove ban _username_ -> to unban a user \n• list banned users -> to see the list of banned users \n• add vip _username_ -> to add a vip to your channel \n• remove vip _username_ -> to remove a vip to your channel \n• list vip users -> to see the vip of your channel \n")		
 						elif re.search("watch", command) or re.search("clip", command) or re.search("top", command) or re.search("categories", command) or re.search("best", command) or re.search("games", command):
 							telegram_bot_sendtext("Command not available into the admin mode. Type _quit_ to exit.")
 						elif re.search("quit", command):
