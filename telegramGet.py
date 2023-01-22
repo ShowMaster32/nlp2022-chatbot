@@ -100,7 +100,7 @@ def telegram_bot_getUpdates():
 				telegram_bot_sendtext("Command available only into the admin mode. Type _admin_ to enter admin mode.")
 			elif re.search("admin", command) or re.search("administrator", command) or re.search("administration", command):
 				#welcome on admin menu function - admin menu
-				telegram_bot_sendtext("Welcome to admin's menu. To quit menu, digit \":quit\" word.")
+				telegram_bot_sendtext("Welcome to admin's menu. To quit menu, digit _quit_ word. To get the available command type _help_")
 				print ("ADMIN Menu - Mode")
 				lastMessageId = ""
 				while True:
@@ -245,7 +245,7 @@ def telegram_bot_getUpdates():
 						else:
 							print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid ADMIN-command\n')
 							if command.casefold() != 'admin':
-								telegram_bot_sendtext('*'+command + '* is not a valid ADMIN-command\n''Type \":help\" to see the available commands.')
+								telegram_bot_sendtext('*'+command + '* is not a valid ADMIN-command\n''Type _help_ to see the available commands.')
 							continue
 						print ("Sleeping until next command..")
 						time.sleep(3)
@@ -257,7 +257,7 @@ def telegram_bot_getUpdates():
 				exit()
 			else:
 				print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid command\n')
-				telegram_bot_sendtext('*'+command + '* is not a valid command\n''Type \":help\" to see the available commands.')
+				telegram_bot_sendtext('*'+command + '* is not a valid command\n''Type _help_ to see the available commands.')
 	except Exception as e: 
 		print(e)
 	
