@@ -71,12 +71,15 @@ def getModerators():
 
 		var=json.loads(response.content)
 		print(var)
-		
-		message='Moderators list: \n'
-		for index, user in enumerate(var['data']):
-			place = index + 1
-			message = message + str(place) + ') ' + user['user_name'] + '\n'
-		
+
+		if var['data']:
+			message='Moderators list: \n'
+			for index, user in enumerate(var['data']):
+				place = index + 1
+				message = message + str(place) + ') ' + user['user_name'] + '\n'
+		else:
+			message='There are no moderators at the moment'
+
 		telegram_bot_sendtext(message)
 	
 		return "Done"
@@ -145,12 +148,15 @@ def getBannedUsers():
 
 		var=json.loads(response.content)
 		print(var)
-		
-		message='Banned users\' list: \n'
-		for index, user in enumerate(var['data']):
-			place = index + 1
-			message = message + str(place) + ') ' + user['user_name'] + '\n'
-		
+
+		if var['data']:
+			message='Banned users\' list: \n'
+			for index, user in enumerate(var['data']):
+				place = index + 1
+				message = message + str(place) + ') ' + user['user_name'] + '\n'
+		else:
+			message='There are no banned users at the moment'
+
 		telegram_bot_sendtext(message)
 	
 		return "Done"
@@ -284,11 +290,14 @@ def getVips():
 
 		var=json.loads(response.content)
 		print(var)
+		if var['data']:
 		
-		message='VIP users\' list: \n'
-		for index, user in enumerate(var['data']):
-			place = index + 1
-			message = message + str(place) + ') ' + user['user_name'] + '\n'
+			message='VIP users\' list: \n'
+			for index, user in enumerate(var['data']):
+				place = index + 1
+				message = message + str(place) + ') ' + user['user_name'] + '\n'
+		else:
+			message="There are no VIPs at the moment"
 		
 		telegram_bot_sendtext(message)
 	
@@ -332,10 +341,14 @@ def addVip(userStream):
 
 		print (response.text)
 				
-		if 'The ID in ' + newModId + ' was not found' in response.text:
+		if 'The ID in ' in response.text and 'was not found' in response.text:
 			telegram_bot_sendtext('The ID was not found!')
 		elif len(response.text) == 0:
 			telegram_bot_sendtext('Successfully added the VIP.')
+		elif 'status' in response.text and '409' in response.text:
+			telegram_bot_sendtext('The broadcaster does not have available VIP slots')
+		elif 'status' in response.text and '422' in response.text:
+			telegram_bot_sendtext('The user is a moderator. To make them a VIP, you must first remove them as a moderator')
 		else:
 			telegram_bot_sendtext('Something gone wrong')
 		
