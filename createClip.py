@@ -59,11 +59,15 @@ def createClip(userStream):
 			response = requests.post('https://api.twitch.tv/helix/clips?broadcaster_id=' + \
 					user_id, headers=headers)
 			create_clip=json.loads(response.content)
-			
-			telegram_bot_sendtext('Creating the clip..')	
-			time.sleep(6)
+			print(create_clip)
 
-			if create_clip['data']:
+			if 'status' in response.text and '403' in response.text:
+				telegram_bot_sendtext("You do not have permissions to Clip on this channel.")
+			elif create_clip['data']:
+							
+				telegram_bot_sendtext('Creating the clip..')	
+				time.sleep(10)
+				
 				clip_id = create_clip['data'][0]['id']
 				
 				headers = {
@@ -78,6 +82,7 @@ def createClip(userStream):
 				url_clip = get_clip['data'][0]['url']
 				#telegram_bot_sendtext(message)
 				telegram_bot_sendtext('Click [here]('+url_clip+') to watch the clip!')	
+
 		# Twitch var data returns wether the stream just went off-line    
 		if not stream['data']:
 			telegram_bot_sendtext(userStream.upper()+' is offline, cannot create clip!')		
