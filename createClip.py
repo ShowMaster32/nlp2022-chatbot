@@ -13,7 +13,7 @@ twitchsecret = os.getenv('TWITCHSECRET')
 OAuth_scope = os.getenv('ACCESS_TOKEN')
 client_id_scope = os.getenv('CLIENT_ID')
 
-banned_keyword_list = ['clip', 'create', 'want', 'show', 'online', 'from', 'know', 'by', 'where', 'when', 'because', 'while', 'what', 'make', 'would', 'will', 'might', 'may', 'can', 'could', 'shall', 'should', 'must', 'like', 'have', 'had', 'does']
+banned_keyword_list = ['clip', 'create', 'generate', 'produce', 'please', 'make', 'want', 'show', 'online', 'from', 'know', 'by', 'where', 'when', 'because', 'while', 'what', 'make', 'would', 'will', 'might', 'may', 'can', 'could', 'shall', 'should', 'must', 'like', 'have', 'had', 'does']
 #
 #2. Function that checks whether stream is online
 def createClip(userStream):
