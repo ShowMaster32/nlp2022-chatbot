@@ -65,7 +65,7 @@ def telegram_bot_getUpdates():
 			if re.search("hi", command) or re.search("hello", command) or re.search("good morning", command) or re.search("good afternoon", command) or re.search("good evening", command):  
 				telegram_bot_sendtext("Hi, I'm a chat bot that let you interact with Twitch. Tell me something or type _help_ to see the list of available commands.")
 			#search keyboards in chat to get info stream status:
-			elif re.search("watch", command) or re.search("stream", command):  
+			elif re.search("watch", command) or re.search("stream", command) or re.search("online", command):  
 				for split in splittedCommand:
 					if len(split) >= 2:
 						#check streaming status function
