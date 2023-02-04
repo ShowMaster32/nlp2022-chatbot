@@ -11,7 +11,7 @@ twitchclient_id = os.getenv('TWITCHCLIENT_ID')
 twitchsecret = os.getenv('TWITCHSECRET')
 
 #exclude general keywords
-banned_keyword_list = ['clip', 'create', 'watch', 'want', 'start', 'please', 'online', 'know', 'stream', 'stop','show', 'from', 'by', 'where', 'when', 'because', 'while', 'what', 'make', 'would', 'will', 'might', 'may', 'can', 'could', 'shall', 'should', 'must', 'like', 'have', 'had', 'does']
+banned_keyword_list = ['clip', 'create', 'remove', 'delete', 'mod', 'moderator', 'moderators', 'channel', 'show', 'me', 'the','admin', 'watch', 'want', 'start', 'set', 'add', 'to', 'put', 'please', 'online', 'know', 'stream', 'stop','show', 'from', 'by', 'where', 'when', 'because', 'while', 'what', 'make', 'would', 'will', 'might', 'may', 'can', 'could', 'shall', 'should', 'must', 'like', 'have', 'had', 'does']
 #2. Add moderator
 def addModerator(userStream):
 
@@ -391,10 +391,12 @@ def removeVip(userStream):
 
 		print (response.text)
 		
-		if 'The ID in ' + newModId + ' was not found.' in response.text:
+		if 'The ID in ' in response.text and 'was not found' in response.text:
 			telegram_bot_sendtext('The ID was not found!')
 		elif len(response.text) == 0:
-			telegram_bot_sendtext('Successfully removed the VIP status from the user.')
+			telegram_bot_sendtext('Successfully removed the VIP.')
+		elif 'status' in response.text and '422' in response.text:
+			telegram_bot_sendtext('The user is not a VIP in the channel')
 		else:
 			telegram_bot_sendtext('Something gone wrong')
 		
