@@ -62,7 +62,7 @@ def telegram_bot_getUpdates():
 			
 			splittedCommand = command.split()
 			
-			if re.search("hi", command) or re.search("hello", command) or re.search("good morning", command) or re.search("good afternoon", command) or re.search("good evening", command):  
+			if re.search("hi", command) or re.search("hello", command) or re.search("hey", command) or re.search("good morning", command) or re.search("good afternoon", command) or re.search("good evening", command):  
 				telegram_bot_sendtext("Hi, I'm a chat bot that let you interact with Twitch. Tell me something or type _help_ to see the list of available commands.")
 			#search keyboards in chat to get info stream status:
 			elif re.search("watch", command) or re.search("stream", command) or re.search("online", command):  
@@ -152,7 +152,7 @@ def telegram_bot_getUpdates():
 								telegram_bot_sendtext(message)
 								
 						#get list of moderators function - admin menu									
-						elif re.search("list", command) and (re.search("mod", command) or re.search("moderator", command) or re.search("moderators", command)):
+						elif re.search("list", command) and (re.search("mod", command) or re.search("moderator", command) or re.search("moderators", command) or re.search("people", command) or re.search("guys", command) or re.search("guy", command)):
 							print ("Received listing moderators request")
 							result = getModerators()
 							
@@ -161,7 +161,7 @@ def telegram_bot_getUpdates():
 								telegram_bot_sendtext(message)
 								
 						#get list of banned users - admin menu									
-						elif re.search("list", command) and re.search("banned", command) and re.search("ban", command) and(re.search("users", command) or re.search("user", command)):
+						elif re.search("list", command) and (re.search("banned", command) or re.search("ban", command)) and (re.search("users", command) or re.search("user", command) or re.search("people", command) or re.search("guys", command) or re.search("guy", command)):
 							print ("Received listing banned users request")
 							result = getBannedUsers()
 							
@@ -204,7 +204,7 @@ def telegram_bot_getUpdates():
 								telegram_bot_sendtext(message)
 								
 						#get list of VIP users - admin menu									
-						elif re.search("list", command) and (re.search("vip", command) or re.search("vips", command)) and (re.search("users", command) or re.search("user", command)):
+						elif re.search("list", command) and (re.search("vip", command) or re.search("vips", command)) and (re.search("users", command) or re.search("user", command) or re.search("people", command) or re.search("guys", command) or re.search("guy", command)):
 							print ("Received listing VIP users request")
 							result = getVips()
 							
@@ -254,8 +254,8 @@ def telegram_bot_getUpdates():
 							telegram_bot_sendtext("Command quit received. Exiting from admin's menu..")
 							break
 						else:
-							print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid ADMIN-command\n')
-							if command.casefold() != 'admin':
+							if not re.search("admin", command):
+								print ('[' + str(dateCommand) + '] ' + command + ' -> Not a valid ADMIN-command\n')
 								telegram_bot_sendtext('*'+command + '* is not a valid ADMIN-command\n''Type _help_ to see the available commands.')
 							continue
 						print ("Sleeping until next command..")

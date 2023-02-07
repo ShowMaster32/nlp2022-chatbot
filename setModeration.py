@@ -11,7 +11,7 @@ twitchclient_id = os.getenv('TWITCHCLIENT_ID')
 twitchsecret = os.getenv('TWITCHSECRET')
 
 #exclude general keywords
-banned_keyword_list = ['clip', 'create', 'remove', 'delete', 'mod', 'moderator', 'moderators', 'channel', 'show', 'me', 'the','admin', 'watch', 'want', 'start', 'set', 'add', 'to', 'put', 'please', 'online', 'know', 'stream', 'stop','show', 'from', 'by', 'where', 'when', 'because', 'while', 'what', 'make', 'would', 'will', 'might', 'may', 'can', 'could', 'shall', 'should', 'must', 'like', 'have', 'had', 'does']
+banned_keyword_list = ['clip', 'create', 'remove', 'delete', 'mod', 'moderator', 'moderators', 'channel', 'show', 'me', 'the','admin', 'watch', 'want', 'start', 'set', 'add', 'to', 'put', 'please', 'online', 'know', 'stream', 'stop','show', 'from', 'by', 'where', 'when', 'because', 'while', 'what', 'make', 'would', 'will', 'might', 'may', 'can', 'could', 'shall', 'should', 'must', 'like', 'have', 'had', 'does', 'tell']
 #2. Add moderator
 def addModerator(userStream):
 
