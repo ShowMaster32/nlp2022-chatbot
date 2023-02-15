@@ -339,19 +339,19 @@ def response(user_response):
         robo_response = robo_response+sent_tokens[idx]
         return telegram_bot_sendtext(robo_response)
 
-telegram_bot_sendtext("Chatbot: My name is Meliodas. I will answer your queries about Chatbots. If you want to exit, type Bye!")
+telegram_bot_sendtext("My name is Meliodas. I will answer your queries about Chatbots. If you want to exit, type Bye!")
 def enableBot(user_response):
     user_response=user_response.lower()
     if(user_response!='bye'):
         if(user_response=='thanks' or user_response=='thank you' ):
-            telegram_bot_sendtext("Chatbot: You are welcome..")
+            telegram_bot_sendtext("You are welcome..")
         else:
             if(greeting(user_response)!=None):
-                telegram_bot_sendtext("Chatbot: "+greeting(user_response))
+                telegram_bot_sendtext(reeting(user_response))
             else:
-                telegram_bot_sendtext("Chatbot: "+response(user_response))
+                telegram_bot_sendtext(response(user_response))
                 sent_tokens.remove(user_response)
     else:
-        telegram_bot_sendtext("Chatbot: Bye! take care..")    
+        telegram_bot_sendtext("Bye! take care..")    
         
         

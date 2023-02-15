@@ -74,3 +74,6 @@ There are many APIs available for building your own chatbots, such as AARC.
 
 Malicious use
 Malicious chatbots are frequently used to fill chat rooms with spam and advertisements, by mimicking human behaviour and conversations or to entice people into revealing personal information, such as bank account numbers. They are commonly found on Yahoo! Messenger, Windows Live Messenger, AOL Instant Messenger and other instant messaging protocols. There has also been a published report of a chatbot used in a fake personal ad on a dating service's website.
+
+Wellness
+How are you? I am robot! It is obviously which I am online I feel great!
